@@ -2,6 +2,12 @@ FROM openjdk:17-jdk-slim
 
 LABEL org.opencontainers.image.authors="valentin.enicnas.rojas@gmail.com"   
 
-COPY target/gameoftrones-0.0.1-SNAPSHOT.jar app.jar
+# The application's jar file
+ARG JAR_FILE    
 
-ENTRYPOINT [ "java","-jar", "app.jar" ]
+RUN echo ${JAR_FILE}                                           
+
+# Add the application's jar to the container
+COPY target/${JAR_FILE} /app.jar       
+
+ENTRYPOINT [ "java","-jar", "/app.jar" ]
